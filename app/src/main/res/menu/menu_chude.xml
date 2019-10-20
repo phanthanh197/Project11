@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="sua tieu de"
+        android:id="@+id/sua_tieu_de"/>
+    <item android:title="sua anh chu de"
+        android:id="@+id/doi_anh_chinh"/>
+    <item android:title="xoa chu de"
+        android:id="@+id/xoa_chu_de"/>
+</menu>

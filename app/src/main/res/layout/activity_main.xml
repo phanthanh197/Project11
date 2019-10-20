@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@drawable/maulen"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="20dp"
+        android:elevation="8dp">
+
+        <ImageView
+            android:id="@+id/image_gift"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentBottom="true"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_gift"
+            android:translationZ="1dp" />
+
+        <ImageView
+            android:id="@+id/image_setting"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_setting"
+            android:translationZ="1dp"
+            android:layout_alignParentRight="true" />
+
+        <TextView
+            android:id="@+id/text_nam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="nam"
+            android:textColor="#CA3C03"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_thoigian"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@id/toolbar"
+        android:background="#E8E0E9FF"></androidx.recyclerview.widget.RecyclerView>
+    <RelativeLayout
+        android:id="@+id/fragment_thongtin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/recycler_thoigian">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_thongtin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00E6E0E0"></androidx.recyclerview.widget.RecyclerView>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <ImageView
+            android:id="@+id/btn_them_chu_de"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:background="?android:attr/selectableItemBackground"
+            android:elevation="3dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/btn_upload" />
+
+        <ImageView
+            android:id="@+id/btn_tai_chu_de"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="?android:attr/selectableItemBackground"
+            android:elevation="3dp"
+            android:layout_weight="50"
+            android:scaleType="centerCrop"
+            android:src="@drawable/btn_sync" />
+    </LinearLayout>
+</RelativeLayout>
