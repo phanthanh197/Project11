@@ -40,12 +40,28 @@ public class ThongTinAdapter extends RecyclerView.Adapter<ThongTinAdapter.ThongT
     public void onBindViewHolder(@NonNull final ThongTinViewHolder thongTinViewHolder, final int i) {
         String k = arrayList.get(i).getThongtin();
         String s = arrayList.get(i).getTen();
-        Glide.with(context)
-                .load(R.drawable.anhdep)
-                .centerCrop()
-                .into(thongTinViewHolder.anh);
+        String a = arrayList.get(i).getPhotopath();
+        File f = new File(a);
+        final Uri uri = Uri.fromFile(f);
+        if (a.equals("")) {
+            Glide.with(context)
+                    .load(R.drawable.anhdep)
+                    .centerCrop()
+                    .into(thongTinViewHolder.anh);
+        } else {
+            Glide.with(context)
+                    .load(uri)
+                    .centerCrop()
+                    .into(thongTinViewHolder.anh);
+        }
         thongTinViewHolder.thongtin.setText(k);
         thongTinViewHolder.tenchude.setText(s);
+        thongTinViewHolder.anh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         thongTinViewHolder.menuchude.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +74,7 @@ public class ThongTinAdapter extends RecyclerView.Adapter<ThongTinAdapter.ThongT
                         switch (item.getItemId()) {
                             case R.id.sua_tieu_de:
                                 break;
-                           case R.id.doi_anh_chinh:
+                            case R.id.doi_anh_chinh:
                                 break;
                             case R.id.xoa_chu_de:
                                 break;

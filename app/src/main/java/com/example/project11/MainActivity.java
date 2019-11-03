@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
@@ -24,6 +26,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -34,10 +38,14 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
     ArrayList<Thang> arrayList;
     ArrayList<ThongTin> arrayList2;
-    RecyclerView recyclerViewthang,recyclerView;
+    RecyclerView recyclerViewthang, recyclerView;
     TextView textnam;
-    ImageView imgtheme,btnthemchude, btntaichude;;
+    ImageView imgtheme, btnthemchude, btntaichude;
+    String tenchude="";
     ThongTinAdapter thongTinBeAdapter;
+    String photopath = "";
+    final int REQUEST_CODE_CAMERA = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,10 +71,10 @@ public class MainActivity extends AppCompatActivity {
         });
         addthang();
         recyclerthang();
-        addthongtinthangnay();
         recyclerthongtin();
-
+        addthongtinthangnay();
     }
+
     private void recyclerthang() {
         recyclerViewthang = (RecyclerView) findViewById(R.id.recycler_thoigian);
         recyclerViewthang.setHasFixedSize(true);
@@ -75,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewthang.setLayoutManager(linearLayoutManager);
         recyclerViewthang.setAdapter(adapterThang);
     }
+
     private void addthang() {
         arrayList = new ArrayList<>();
         arrayList.add(new Thang("January"));
@@ -90,7 +99,10 @@ public class MainActivity extends AppCompatActivity {
         arrayList.add(new Thang("November"));
         arrayList.add(new Thang("December"));
     }
+
     private void recyclerthongtin() {
+        arrayList2 = new ArrayList<ThongTin>();
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_thongtin);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_thongtin);
         recyclerView.setHasFixedSize(true);
         thongTinBeAdapter = new ThongTinAdapter(arrayList2, this);
@@ -99,12 +111,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(thongTinBeAdapter);
     }
+
     private void addthongtinthangnay() {
-        arrayList2 = new ArrayList<ThongTin>();
-        arrayList2.add(new ThongTin( "chu de","noi dung", thoigian()));
-        arrayList2.add(new ThongTin( "chu de","noi dung", thoigian()));
-        arrayList2.add(new ThongTin( "chu de","noi dung", thoigian()));
+        thongTinBeAdapter.notifyDataSetChanged();
     }
+
     private void dialogthemchude() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_themchude);
@@ -113,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
         final ImageButton imgintentcamera, imgdowloatcamera;
         final EditText edttenchude;
         Button btnyes, btnno;
-
         imgintentcamera = (ImageButton) dialog.findViewById(R.id.img_btn_camera);
         imgdowloatcamera = (ImageButton) dialog.findViewById(R.id.img_btn_dowloat);
         edttenchude = (EditText) dialog.findViewById(R.id.edt_name_theme);
@@ -123,6 +133,20 @@ public class MainActivity extends AppCompatActivity {
         imgintentcamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    File imagefile = null;
+                    try {
+                        imagefile = fileimage();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    if (null != imagefile) {
+                        Uri photoURI = FileProvider.getUriForFile(MainActivity.this, "com.example.android.fileprovider", imagefile);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                        startActivityForResult(intent, REQUEST_CODE_CAMERA);
+                    }
+                }
             }
         });
 
@@ -134,6 +158,18 @@ public class MainActivity extends AppCompatActivity {
         btnyes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tenchude = edttenchude.getText().toString();
+                if (!tenchude.equals("")) {
+                    thongTinBeAdapter.notifyItemInserted(0);
+                    recyclerView.scrollToPosition(0);
+                    arrayList2.add(0, new ThongTin(1, "", "noi dung", photopath, thoigian()));
+                    thongTinBeAdapter.notifyItemInserted(0);
+                    recyclerView.scrollToPosition(0);
+                    addthongtinthangnay();
+                    dialog.cancel();
+                } else {
+                    Toast.makeText(MainActivity.this, "ban chua nhap ten chu de", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         btnno.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +180,34 @@ public class MainActivity extends AppCompatActivity {
         });
         dialog.show();
     }
-    private void dialogtaichude(){
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_CAMERA && resultCode == RESULT_OK && data != null) {
+            File file = new File(photopath);
+            Uri uri = Uri.fromFile(file);
+            Glide.with(getApplicationContext())
+                    .load(uri)
+                    .centerCrop()
+                    .into(imgtheme);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+
+    private File fileimage() throws IOException {
+        // tao anh ten thanh.png trong file save_anh
+        String root = Environment.getExternalStorageDirectory().toString();
+        File file1 = new File(root + "/save_anh");
+        if (!file1.exists()) {
+            file1.mkdirs();
+        }
+        File file = File.createTempFile("image_" + thoigian(), ".jpg", file1);
+        photopath = file.getAbsolutePath();
+        return file;
+    }
+
+    private void dialogtaichude() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_taianh);
         LinearLayout linearLayout1;
@@ -159,13 +222,15 @@ public class MainActivity extends AppCompatActivity {
         });
         dialog.show();
     }
+
     public String thoigianngay() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String date = simpleDateFormat.format(new Date());
         return date;
     }
-    public String thoigian(){
+
+    public String thoigian() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh-mm-ss");
         String gio = simpleDateFormat.format(new Date());
