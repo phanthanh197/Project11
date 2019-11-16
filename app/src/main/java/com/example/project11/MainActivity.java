@@ -40,8 +40,9 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<ThongTin> arrayList2;
     RecyclerView recyclerViewthang, recyclerView;
     TextView textnam;
+    Database database;
     ImageView imgtheme, btnthemchude, btntaichude;
-    String tenchude="";
+    String tenbang, bangthanghientai,tenchude="";
     ThongTinAdapter thongTinBeAdapter;
     String photopath = "";
     final int REQUEST_CODE_CAMERA = 0, REQUEST_CODE_FILE = 1;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 dialogthemchude();
             }
         });
+        DataBaseSQL(thoigianthang());
         addthang();
         recyclerthang();
         recyclerthongtin();
@@ -208,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String getRealPathFromURI(Context context, Uri uri) {
+        //lấy địa chỉ từ file ảnh của bộ nhớ điên thoại
         Cursor cursor = null;
         try {
             String[] proj = {MediaStore.Images.Media.DATA};
@@ -250,10 +253,31 @@ public class MainActivity extends AppCompatActivity {
         });
         dialog.show();
     }
+    public void DataBaseSQL(String z) {
+        tenbang = "chude" + z;
+        bangthanghientai = "chude" + thoigianthang();
+        database = new Database(this, "Chude.db", null, 1);
+        database.QueryData("CREATE TABLE IF NOT EXISTS '" + tenbang + "' (Id INTEGER PRIMARY KEY AUTOINCREMENT, Tenchude VARCHAR(200), Diachianh VARCHAR(100))");
+        database.QueryData("CREATE TABLE IF NOT EXISTS '" + bangthanghientai + "' (Id INTEGER PRIMARY KEY AUTOINCREMENT, Tenchude VARCHAR(200), Diachianh VARCHAR(100))");
+        //database.QueryData("INSERT INTO Tensinhvien VALUES(null, 'Phan Dinh Than
+        // h')");
+                /*while (dataTen.moveToNext()){
+                    String ten = dataTen.getString(1);
+            Toast.makeText(this,ten,Toast.LENGTH_SHORT).show();
+        }
+        database.QueryData("DELETE FROM Chude WHERE Id = '" + 1 + "'");*/
+    }
 
     public String thoigianngay() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String date = simpleDateFormat.format(new Date());
+        return date;
+    }
+
+    public String thoigianthang() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yyyy");
         String date = simpleDateFormat.format(new Date());
         return date;
     }
