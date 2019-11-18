@@ -203,8 +203,6 @@ public class MainActivity extends AppCompatActivity {
                     .centerCrop()
                     .into(imgtheme);
             photopath = getRealPathFromURI(MainActivity.this, uri);
-            //Toast.makeText(MainActivity.this, "" + photopath, Toast.LENGTH_SHORT).show();
-
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -259,13 +257,6 @@ public class MainActivity extends AppCompatActivity {
         database = new Database(this, "Chude.db", null, 1);
         database.QueryData("CREATE TABLE IF NOT EXISTS '" + tenbang + "' (Id INTEGER PRIMARY KEY AUTOINCREMENT, Tenchude VARCHAR(200), Diachianh VARCHAR(100))");
         database.QueryData("CREATE TABLE IF NOT EXISTS '" + bangthanghientai + "' (Id INTEGER PRIMARY KEY AUTOINCREMENT, Tenchude VARCHAR(200), Diachianh VARCHAR(100))");
-        //database.QueryData("INSERT INTO Tensinhvien VALUES(null, 'Phan Dinh Than
-        // h')");
-                /*while (dataTen.moveToNext()){
-                    String ten = dataTen.getString(1);
-            Toast.makeText(this,ten,Toast.LENGTH_SHORT).show();
-        }
-        database.QueryData("DELETE FROM Chude WHERE Id = '" + 1 + "'");*/
     }
 
     public String thoigianngay() {
