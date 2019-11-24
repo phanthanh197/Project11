@@ -115,6 +115,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addthongtinthangnay() {
+        arrayList2.clear();
+        Cursor cursor = database.getData("SELECT * FROM '" + bangthanghientai + "'");
+        cursor.moveToFirst();
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(0);
+            String ten = cursor.getString(1);
+            String diachianh = cursor.getString(2);
+            arrayList2.add(0, new ThongTin(id, ten, "noi dung", diachianh, thoigian()));
+        }
+        thongTinBeAdapter.notifyDataSetChanged();
+    }
+
+    public void addthongtinthang() {
+        arrayList2.clear();
+        Cursor cursor = database.getData("SELECT * FROM '" + tenbang + "'");
+        cursor.moveToFirst();
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(0);
+            String ten = cursor.getString(1);
+            String diachianh = cursor.getString(2);
+            arrayList2.add(0, new ThongTin(id, ten, "noi dung", diachianh, thoigian()));
+        }
         thongTinBeAdapter.notifyDataSetChanged();
     }
 
@@ -164,14 +186,26 @@ public class MainActivity extends AppCompatActivity {
         btnyes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tenchude = edttenchude.getText().toString();
+                String tenchude = edttenchude.getText().toString();
                 if (!tenchude.equals("")) {
-                    thongTinBeAdapter.notifyItemInserted(0);
-                    recyclerView.scrollToPosition(0);
-                    arrayList2.add(0, new ThongTin(1, "", "noi dung", photopath, thoigian()));
-                    thongTinBeAdapter.notifyItemInserted(0);
-                    recyclerView.scrollToPosition(0);
-                    addthongtinthangnay();
+                    database.QueryData("INSERT INTO '" + bangthanghientai + "' VALUES(null, '" + tenchude + "', '" + photopath + "')");
+                    photopath = "";
+                    if (tenbang.equals(bangthanghientai)) {
+                        Cursor cursor = database.getData("SELECT * FROM '" + tenbang + "'");
+                        cursor.moveToFirst();
+                        while (cursor.moveToNext()) {
+                            if (cursor.isLast()) {
+                                int id = cursor.getInt(0);
+                                String ten = cursor.getString(1);
+                                String diachianh = cursor.getString(2);
+                                arrayList2.add(0, new ThongTin(id, ten, "noi dung", diachianh, thoigian()));
+                                thongTinBeAdapter.notifyItemInserted(0);
+                                recyclerView.scrollToPosition(0);
+                            }
+                        }
+                    } else {
+                        addthongtinthangnay();
+                    }
                     dialog.cancel();
                 } else {
                     Toast.makeText(MainActivity.this, "ban chua nhap ten chu de", Toast.LENGTH_SHORT).show();
