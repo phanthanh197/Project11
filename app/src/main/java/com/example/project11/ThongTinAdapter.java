@@ -1,15 +1,20 @@
 package com.example.project11;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +27,7 @@ import java.util.ArrayList;
 public class ThongTinAdapter extends RecyclerView.Adapter<ThongTinAdapter.ThongTinViewHolder> {
     ArrayList<ThongTin> arrayList;
     MainActivity context;
+    Dialog dialog;
 
     public ThongTinAdapter(ArrayList<ThongTin> arrayList, MainActivity context) {
         this.arrayList = arrayList;
@@ -73,10 +79,10 @@ public class ThongTinAdapter extends RecyclerView.Adapter<ThongTinAdapter.ThongT
                         int a = thongTinViewHolder.getAdapterPosition();
                         switch (item.getItemId()) {
                             case R.id.sua_tieu_de:
-                                break;
-                            case R.id.doi_anh_chinh:
+                                dialogsuatieude(arrayList.get(a).getId(), a);
                                 break;
                             case R.id.xoa_chu_de:
+                                delete(arrayList.get(a).getId(), a);
                                 break;
                         }
                         return false;
@@ -91,6 +97,35 @@ public class ThongTinAdapter extends RecyclerView.Adapter<ThongTinAdapter.ThongT
     public int getItemCount() {
         return arrayList.size();
     }
+    private void dialogsuatieude(final int id, final int i) {
+        dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_suatieude);
+        final EditText edtText = (EditText) dialog.findViewById(R.id.dialog_edt_noidung_tieude);
+        Button buttondongy = (Button) dialog.findViewById(R.id.dilog_btn_doi_tieu_de);
+        final Button buttonkodongy = (Button) dialog.findViewById(R.id.dilog_btn_huy_doi_tieu_de);
+        buttondongy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String t = edtText.getText().toString();
+                if (!t.equals("")) {
+                    context.database.QueryData("UPDATE '" + context.tenbang + "' SET Tenchude = '" + t + "' WHERE Id = '" + id + "'");
+                    if (context.tenbang.equals(context.bangthanghientai)) {
+                        arrayList.get(i).setTen(t);
+                        notifyItemChanged(i, null);
+                    }
+                    dialog.cancel();
+                }
+                dialog.cancel();
+            }
+        });
+        buttonkodongy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        dialog.show();
+    }
 
     public class ThongTinViewHolder extends RecyclerView.ViewHolder {
         ImageView anh, menuchude;
@@ -103,5 +138,24 @@ public class ThongTinAdapter extends RecyclerView.Adapter<ThongTinAdapter.ThongT
             thongtin = (TextView) itemView.findViewById(R.id.noi_dung_chinh);
             tenchude = (TextView) itemView.findViewById(R.id.ten_chu_de);
         }
+    }
+    private void delete(final int id, final int i) {
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        alertDialog.setMessage("ban co dong y xoa chu de nay?");
+        Toast.makeText(context, id + "va" + i + "", Toast.LENGTH_LONG).show();
+        alertDialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                context.database.QueryData("DELETE FROM '" + context.tenbang + "' WHERE Id='" + id + "'");
+                arrayList.remove(i);
+                notifyItemRemoved(i);
+            }
+        });
+        alertDialog.setNegativeButton("no", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        alertDialog.show();
     }
 }
