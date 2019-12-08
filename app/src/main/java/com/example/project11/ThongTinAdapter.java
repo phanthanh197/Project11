@@ -65,7 +65,10 @@ public class ThongTinAdapter extends RecyclerView.Adapter<ThongTinAdapter.ThongT
         thongTinViewHolder.anh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(context, ChuDeActivity.class);
+                intent.putExtra("1",uri.getPath());
+                intent.putExtra("2",thongTinViewHolder.tenchude.getText());
+                context.startActivity(intent);
             }
         });
         thongTinViewHolder.menuchude.setOnClickListener(new View.OnClickListener() {
