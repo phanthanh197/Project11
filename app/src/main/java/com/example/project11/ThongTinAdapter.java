@@ -46,7 +46,7 @@ public class ThongTinAdapter extends RecyclerView.Adapter<ThongTinAdapter.ThongT
     public void onBindViewHolder(@NonNull final ThongTinViewHolder thongTinViewHolder, final int i) {
         String k = arrayList.get(i).getThongtin();
         String s = arrayList.get(i).getTen();
-        String a = arrayList.get(i).getPhotopath();
+        final String a = arrayList.get(i).getPhotopath();
         File f = new File(a);
         final Uri uri = Uri.fromFile(f);
         if (a.equals("")) {
@@ -68,6 +68,7 @@ public class ThongTinAdapter extends RecyclerView.Adapter<ThongTinAdapter.ThongT
                 Intent intent = new Intent(context, ChuDeActivity.class);
                 intent.putExtra("1",uri.getPath());
                 intent.putExtra("2",thongTinViewHolder.tenchude.getText());
+                intent.putExtra("3",a);
                 context.startActivity(intent);
             }
         });

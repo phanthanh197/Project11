@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="sua tieu de"
+    <item android:title="edit topic"
         android:id="@+id/sua_tieu_de"/>
-    <item android:title="xoa chu de"
+    <item android:title="Delete"
         android:id="@+id/xoa_chu_de"/>
 </menu>

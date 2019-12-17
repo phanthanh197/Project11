@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerViewthang, recyclerView;
     TextView textnam;
     Database database;
-    ImageView imgtheme, btnthemchude, btntaichude;
+    ImageView imgtheme, btnthemchude, btntaichude,imagesetting;
     String tenbang, bangthanghientai,tenchude="";
     ThongTinAdapter thongTinBeAdapter;
     String photopath = "";
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         textnam = (TextView) findViewById(R.id.text_nam);
         textnam.setText(thoigianngay());
+        imagesetting = (ImageView) findViewById(R.id.image_setting);
         btnthemchude = (ImageView) findViewById(R.id.btn_them_chu_de);
         btntaichude = (ImageView) findViewById(R.id.btn_tai_chu_de);
         btntaichude.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialogthemchude();
+            }
+        });
+        imagesetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettActivity.class);
+                startActivity(intent);
             }
         });
         DataBaseSQL(thoigianthang());

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+    <item android:title="General">
+        <menu>
+            <item
+                android:id="@+id/feedback_and_suggestion"
+                android:icon="@drawable/ic_feedback"
+                android:title="Feedback And Suggestion" />
+            <item
+                android:id="@+id/rate_us"
+                android:icon="@drawable/ic_star"
+                android:title="Rate Us" />
+            <item
+                android:id="@+id/share_app"
+                android:icon="@drawable/ic_share"
+                android:title="Share App" />
+        </menu>
+    </item>
+    <item android:title="Security">
+        <menu>
+            <item android:id="@+id/turn_off_passcode"
+                android:title="Turn Off Passcode"
+                android:icon="@drawable/ic_lock"/>
+            <item android:id="@+id/change_passcode"
+                android:title="Change Passcode"
+                android:icon="@drawable/ic_key"/>
+        </menu>
+    </item>
+    <item android:title="Remove Ads">
+        <menu>
+            <item android:id="@+id/get_full_version"
+                android:title="Get Full Version"
+                android:icon="@drawable/ic_lock"/>
+        </menu>
+    </item>
+    </group>
+
+</menu>

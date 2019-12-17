@@ -22,16 +22,25 @@ public class ChuDeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String value1 = intent.getStringExtra("1");
         String value2 = intent.getStringExtra("2");
+        String value3 = intent.getStringExtra("3");
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(null);
         EditText editText = findViewById(R.id.editText2);
         textView.setText(value2);
-        Glide.with(getApplicationContext())
-                .load(value1)
-                .centerCrop()
-                .into(imageView);
+        if(value3.equals("")) {
+            Glide.with(getApplicationContext())
+                    .load(R.drawable.anhdep)
+                    .centerCrop()
+                    .into(imageView);
+        }
+        else{
+            Glide.with(getApplicationContext())
+                    .load(value1)
+                    .centerCrop()
+                    .into(imageView);
+        }
     }
 
     @Override
