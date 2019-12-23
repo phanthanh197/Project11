@@ -62,6 +62,7 @@ public class ThongTinAdapter extends RecyclerView.Adapter<ThongTinAdapter.ThongT
         }
         thongTinViewHolder.thongtin.setText(k);
         thongTinViewHolder.tenchude.setText(s);
+        final String ten = context.tenbang1;
         thongTinViewHolder.anh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +70,8 @@ public class ThongTinAdapter extends RecyclerView.Adapter<ThongTinAdapter.ThongT
                 intent.putExtra("1",uri.getPath());
                 intent.putExtra("2",thongTinViewHolder.tenchude.getText());
                 intent.putExtra("3",a);
+                intent.putExtra("4",arrayList.get(thongTinViewHolder.getAdapterPosition()).getId());
+                intent.putExtra("5",ten);
                 context.startActivity(intent);
             }
         });
@@ -112,8 +115,8 @@ public class ThongTinAdapter extends RecyclerView.Adapter<ThongTinAdapter.ThongT
             public void onClick(View v) {
                 String t = edtText.getText().toString();
                 if (!t.equals("")) {
-                    context.database.QueryData("UPDATE '" + context.tenbang + "' SET Tenchude = '" + t + "' WHERE Id = '" + id + "'");
-                    if (context.tenbang.equals(context.bangthanghientai)) {
+                    context.database.QueryData("UPDATE '" + context.tenbang1 + "' SET Tenchude = '" + t + "' WHERE Id = '" + id + "'");
+                    if (context.tenbang1.equals(context.bangthanghientai1)) {
                         arrayList.get(i).setTen(t);
                         notifyItemChanged(i, null);
                     }
@@ -150,7 +153,7 @@ public class ThongTinAdapter extends RecyclerView.Adapter<ThongTinAdapter.ThongT
         alertDialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                context.database.QueryData("DELETE FROM '" + context.tenbang + "' WHERE Id='" + id + "'");
+                context.database.QueryData("DELETE FROM '" + context.tenbang1 + "' WHERE Id='" + id + "'");
                 arrayList.remove(i);
                 notifyItemRemoved(i);
             }

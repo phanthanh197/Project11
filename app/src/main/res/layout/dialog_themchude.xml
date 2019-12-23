@@ -80,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/edt_name_theme"
-            android:text="huy" />
+            android:text="no" />
 
         <Button
             android:id="@+id/btn_yes"
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/edt_name_theme"
             android:layout_alignParentEnd="true"
-            android:text="them" />
+            android:text="yes" />
     </RelativeLayout>
 
 </LinearLayout>

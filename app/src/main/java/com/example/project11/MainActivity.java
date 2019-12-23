@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     TextView textnam;
     Database database;
     ImageView imgtheme, btnthemchude, btntaichude,imagesetting;
-    String tenbang, bangthanghientai,tenchude="";
+    String tenbang1, bangthanghientai1,tenchude="";
     ThongTinAdapter thongTinBeAdapter;
     String photopath = "";
     final int REQUEST_CODE_CAMERA = 0, REQUEST_CODE_FILE = 1;
@@ -124,26 +124,28 @@ public class MainActivity extends AppCompatActivity {
 
     private void addthongtinthangnay() {
         arrayList2.clear();
-        Cursor cursor = database.getData("SELECT * FROM '" + bangthanghientai + "'");
+        Cursor cursor = database.getData("SELECT * FROM '" + bangthanghientai1 + "'");
         cursor.moveToFirst();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String ten = cursor.getString(1);
             String diachianh = cursor.getString(2);
-            arrayList2.add(0, new ThongTin(id, ten, "noi dung", diachianh, thoigian()));
+            String noidung = cursor.getString(3);
+            arrayList2.add(0, new ThongTin(id, ten, noidung, diachianh, thoigian()));
         }
         thongTinBeAdapter.notifyDataSetChanged();
     }
 
     public void addthongtinthang() {
         arrayList2.clear();
-        Cursor cursor = database.getData("SELECT * FROM '" + tenbang + "'");
+        Cursor cursor = database.getData("SELECT * FROM '" + tenbang1 + "'");
         cursor.moveToFirst();
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String ten = cursor.getString(1);
             String diachianh = cursor.getString(2);
-            arrayList2.add(0, new ThongTin(id, ten, "noi dung", diachianh, thoigian()));
+            String noidung = cursor.getString(3);
+            arrayList2.add(0, new ThongTin(id, ten, noidung, diachianh, thoigian()));
         }
         thongTinBeAdapter.notifyDataSetChanged();
     }
@@ -196,17 +198,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String tenchude = edttenchude.getText().toString();
                 if (!tenchude.equals("")) {
-                    database.QueryData("INSERT INTO '" + bangthanghientai + "' VALUES(null, '" + tenchude + "', '" + photopath + "')");
+                    String noidung="noi dung";
+                    database.QueryData("INSERT INTO '" + bangthanghientai1 + "' VALUES(null, '" + tenchude + "', '" + photopath + "','"+noidung+"')");
                     photopath = "";
-                    if (tenbang.equals(bangthanghientai)) {
-                        Cursor cursor = database.getData("SELECT * FROM '" + tenbang + "'");
+                    if (tenbang1.equals(bangthanghientai1)) {
+                        Cursor cursor = database.getData("SELECT * FROM '" + tenbang1 + "'");
                         cursor.moveToFirst();
                         while (cursor.moveToNext()) {
                             if (cursor.isLast()) {
                                 int id = cursor.getInt(0);
                                 String ten = cursor.getString(1);
                                 String diachianh = cursor.getString(2);
-                                arrayList2.add(0, new ThongTin(id, ten, "noi dung", diachianh, thoigian()));
+                                noidung = cursor.getString(3);
+                                arrayList2.add(0, new ThongTin(id, ten, noidung, diachianh, thoigian()));
                                 thongTinBeAdapter.notifyItemInserted(0);
                                 recyclerView.scrollToPosition(0);
                             }
@@ -216,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     dialog.cancel();
                 } else {
-                    Toast.makeText(MainActivity.this, "ban chua nhap ten chu de", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "bạn chưa nhập tên chủ đề", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -294,11 +298,11 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
     public void DataBaseSQL(String z) {
-        tenbang = "chude" + z;
-        bangthanghientai = "chude" + thoigianthang();
+        tenbang1 = "chude" + z;
+        bangthanghientai1 = "chude" + thoigianthang();
         database = new Database(this, "Chude.db", null, 1);
-        database.QueryData("CREATE TABLE IF NOT EXISTS '" + tenbang + "' (Id INTEGER PRIMARY KEY AUTOINCREMENT, Tenchude VARCHAR(200), Diachianh VARCHAR(100))");
-        database.QueryData("CREATE TABLE IF NOT EXISTS '" + bangthanghientai + "' (Id INTEGER PRIMARY KEY AUTOINCREMENT, Tenchude VARCHAR(200), Diachianh VARCHAR(100))");
+        database.QueryData("CREATE TABLE IF NOT EXISTS '" + tenbang1 + "' (Id INTEGER PRIMARY KEY AUTOINCREMENT, Tenchude VARCHAR(200), Diachianh VARCHAR(100), Noidung VARCHAR(1000))");
+        database.QueryData("CREATE TABLE IF NOT EXISTS '" + bangthanghientai1 + "' (Id INTEGER PRIMARY KEY AUTOINCREMENT, Tenchude VARCHAR(200), Diachianh VARCHAR(100), Noidung VARCHAR(1000))");
     }
 
     public String thoigianngay() {
