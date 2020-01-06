@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Project11</string>
+    <string name="app_name" translatable="false">BAITAP</string>
+    <string name="thong_tin" translatable="false">thong tin be</string>
+    <string name="upload" translatable="false">upload</string>
+    <string name="switch_accounts" translatable="false">switch accounts</string>
+    <string name="logout" translatable="false">logout</string>
+    <string name="logoutAll" translatable="false">logoutAll</string>
 </resources>
