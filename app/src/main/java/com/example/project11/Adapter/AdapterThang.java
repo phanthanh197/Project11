@@ -1,4 +1,4 @@
-package com.example.project11;
+package com.example.project11.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.project11.Activity.MainActivity;
+import com.example.project11.R;
+import com.example.project11.setget.Thang;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.project11;
+package com.example.project11.Adapter;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,12 +14,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.project11.Activity.ChuDeActivity;
+import com.example.project11.Activity.MainActivity;
+import com.example.project11.R;
+import com.example.project11.setget.ThongTin;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -149,7 +152,6 @@ public class ThongTinAdapter extends RecyclerView.Adapter<ThongTinAdapter.ThongT
     private void delete(final int id, final int i) {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setMessage("ban co dong y xoa chu de nay?");
-        Toast.makeText(context, id + "va" + i + "", Toast.LENGTH_LONG).show();
         alertDialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

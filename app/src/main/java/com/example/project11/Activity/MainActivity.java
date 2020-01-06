@@ -1,4 +1,4 @@
-package com.example.project11;
+package com.example.project11.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
@@ -27,6 +27,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.project11.Adapter.AdapterThang;
+import com.example.project11.Adapter.Database;
+import com.example.project11.Adapter.ThongTinAdapter;
+import com.example.project11.R;
+import com.example.project11.setget.Thang;
+import com.example.project11.setget.ThongTin;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,13 +42,14 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
+
+    public Database database;
     ArrayList<Thang> arrayList;
     ArrayList<ThongTin> arrayList2;
     RecyclerView recyclerViewthang, recyclerView;
     TextView textnam;
-    Database database;
     ImageView imgtheme, btnthemchude, btntaichude,imagesetting;
-    String tenbang1, bangthanghientai1,tenchude="";
+    public String tenbang1, bangthanghientai1,tenchude="";
     ThongTinAdapter thongTinBeAdapter;
     String photopath = "";
     final int REQUEST_CODE_CAMERA = 0, REQUEST_CODE_FILE = 1;
@@ -94,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewthang.setAdapter(adapterThang);
     }
 
-    private void addthang() {
+    private void addthang() {//thêm các tháng vào recyclerview
         arrayList = new ArrayList<>();
         arrayList.add(new Thang("January"));
         arrayList.add(new Thang("February"));
@@ -122,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(thongTinBeAdapter);
     }
 
-    private void addthongtinthangnay() {
+    private void addthongtinthangnay() {//lấy dữ liệu từng tháng
         arrayList2.clear();
         Cursor cursor = database.getData("SELECT * FROM '" + bangthanghientai1 + "'");
         cursor.moveToFirst();

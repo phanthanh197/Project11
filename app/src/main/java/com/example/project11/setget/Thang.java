@@ -1,4 +1,4 @@
-package com.example.project11;
+package com.example.project11.setget;
 
 public class Thang {
     private String thang;

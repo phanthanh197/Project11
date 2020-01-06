@@ -1,4 +1,4 @@
-package com.example.project11;
+package com.example.project11.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.project11.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class SettActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

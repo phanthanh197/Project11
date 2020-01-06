@@ -12,7 +12,7 @@
         android:background="#FFFFFFFF"
         android:elevation="5dp"
         android:paddingStart="5dp"
-        android:text="moi ban tai anh len"
+        android:text="mời bạn tải ảnh lên"
         android:textColor="@color/textcolor"
         android:textSize="20sp" />
 
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:paddingStart="5dp"
-            android:text="nhap ten chu de"
+            android:text="Nhập tên chủ đề"
             android:textColor="@color/textcolor"
             android:textSize="20sp" />
 
