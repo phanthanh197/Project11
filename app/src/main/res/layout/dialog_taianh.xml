@@ -8,7 +8,7 @@
         android:layout_height="50dp"
         android:background="#371E98B6"
         android:gravity="center"
-        android:text="Chon Mang"
+        android:text=""
         android:textSize="22dp"
         android:textStyle="bold" />
 
@@ -40,7 +40,7 @@
             android:paddingStart="5dp"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/imageView_box"
-            android:text="TextView" />
+            android:text="Box" />
     </LinearLayout>
 
     <LinearLayout
@@ -74,7 +74,7 @@
             android:paddingTop="10dp"
             android:paddingStart="5dp"
             android:layout_toEndOf="@+id/imageView4"
-            android:text="TextView" />
+            android:text="DropBox" />
     </LinearLayout>
 
     <LinearLayout
@@ -105,7 +105,7 @@
             android:paddingStart="5dp"
             android:textSize="20dp"
             android:layout_toEndOf="@+id/imageView5"
-            android:text="TextView" />
+            android:text="GoogDriver" />
     </LinearLayout>
 
 </RelativeLayout>
