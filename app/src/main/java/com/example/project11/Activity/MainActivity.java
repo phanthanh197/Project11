@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<ThongTin> arrayList2;
     RecyclerView recyclerViewthang, recyclerView;
     TextView textnam;
-    ImageView imgtheme, btnthemchude, btntaichude,imagesetting;
+    ImageView imgtheme, btnthemchude, btntaichude,imagesetting,btngiaima;
     public String tenbang1, bangthanghientai1,tenchude="";
     ThongTinAdapter thongTinBeAdapter;
     String photopath = "";
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         imagesetting = (ImageView) findViewById(R.id.image_setting);
         btnthemchude = (ImageView) findViewById(R.id.btn_them_chu_de);
         btntaichude = (ImageView) findViewById(R.id.btn_tai_chu_de);
+        btngiaima = (ImageView) findViewById(R.id.image_unlock);
         btntaichude.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +84,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SettActivity.class);
                 startActivity(intent);
+            }
+        });
+        btngiaima.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), UnlockActivity.class));
             }
         });
         DataBaseSQL(thoigianthang());
@@ -119,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void recyclerthongtin() {
         arrayList2 = new ArrayList<ThongTin>();
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_thongtin);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_thongtin);
         recyclerView.setHasFixedSize(true);
         thongTinBeAdapter = new ThongTinAdapter(arrayList2, this);

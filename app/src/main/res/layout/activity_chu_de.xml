@@ -9,21 +9,35 @@
         android:layout_height="300dp"
         android:elevation="10dp"
         android:src="@drawable/anhdep" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:textSize="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text=""
-        android:visibility="visible"
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="20dp"
+        android:hint="Enter message"
         />
     <EditText
-        android:id="@+id/editText2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="left|top"
-        android:hint="Name"
-        android:visibility="gone"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="20dp"
+        android:hint="Enter secret key"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="50dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="giải mã"
+            android:layout_marginEnd="100dp"/>
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="save image"
+            android:layout_marginEnd="17dp"/>
+    </LinearLayout>
 </LinearLayout>

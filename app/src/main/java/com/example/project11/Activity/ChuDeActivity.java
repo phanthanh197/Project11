@@ -36,8 +36,6 @@ public class ChuDeActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(null);
-        textView = findViewById(R.id.textView6);
-        editText = findViewById(R.id.editText2);
         int value4 = intent.getIntExtra("4",0);
         tenbang1 = intent.getStringExtra("5");
         /*Cursor cursor = context.database.getData("SELECT * FROM '" + tenbang1 + "' WHERE Id = '"+value4+"'");

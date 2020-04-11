@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project11.R;
@@ -22,7 +21,7 @@ public class SettActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+    public boolean onNavigationItemSelected( MenuItem menuItem) {
         int id = menuItem.getItemId();
         if(id==R.id.feedback_and_suggestion){
             Intent intent = new Intent();
