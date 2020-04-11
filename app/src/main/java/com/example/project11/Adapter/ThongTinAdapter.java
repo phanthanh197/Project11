@@ -19,7 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.project11.Activity.ChuDeActivity;
+import com.example.project11.Activity.HideCodeActivity;
 import com.example.project11.Activity.MainActivity;
 import com.example.project11.R;
 import com.example.project11.setget.ThongTin;
@@ -69,7 +69,7 @@ public class ThongTinAdapter extends RecyclerView.Adapter<ThongTinAdapter.ThongT
         thongTinViewHolder.anh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ChuDeActivity.class);
+                Intent intent = new Intent(context, HideCodeActivity.class);
                 intent.putExtra("1",uri.getPath());
                 intent.putExtra("2",thongTinViewHolder.tenchude.getText());
                 intent.putExtra("3",a);

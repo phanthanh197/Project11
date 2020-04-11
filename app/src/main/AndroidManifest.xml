@@ -17,7 +17,7 @@
         <activity android:name=".Activity.UnlockActivity"></activity>
         <activity android:name=".Activity.AppBoxActivity" />
         <activity android:name=".Activity.SettActivity" />
-        <activity android:name=".Activity.ChuDeActivity" />
+        <activity android:name=".Activity.HideCodeActivity" />
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
