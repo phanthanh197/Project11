@@ -1,2 +1,2 @@
-include ':app', ':box-content-sdk', ':ImageSteganographyLibrary'
+include ':app', ':box-content-sdk'
 rootProject.name='Project11'

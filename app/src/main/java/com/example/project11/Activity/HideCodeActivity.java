@@ -25,11 +25,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.ayush.imagesteganographylibrary.Text.AsyncTaskCallback.TextEncodingCallback;
-import com.ayush.imagesteganographylibrary.Text.ImageSteganography;
-import com.ayush.imagesteganographylibrary.Text.TextEncoding;
 import com.bumptech.glide.Glide;
 import com.example.project11.R;
+import com.example.project11.Text.AsyncTaskCallback.TextEncodingCallback;
+import com.example.project11.Text.ImageSteganography;
+import com.example.project11.Text.TextEncoding;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -63,7 +63,7 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
         secret_key = findViewById(R.id.secret_key);
         Button encode_button = findViewById(R.id.encode_button);
         Button save_image_button = findViewById(R.id.save_image_button);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         imgcode = intent.getStringExtra("1");
         String value2 = intent.getStringExtra("2");
         String value3 = intent.getStringExtra("3");
@@ -98,10 +98,11 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
                 if (imgcode != null) {
                     if (message.getText() != null) {
 
-                        //ImageSteganography Object instantiation
+                        //tạo đối tượng ImageSteganography
+                        //mã hóa tin nhắn và tạo khung bitmap
                         imageSteganography = new ImageSteganography(message.getText().toString(),
                                 secret_key.getText().toString(),(((BitmapDrawable)imageViewCode.getDrawable()).getBitmap()));
-                        //TextEncoding object Instantiation
+                        //tạo đối tượng TextEncoding
                         textEncoding = new TextEncoding(HideCodeActivity.this, HideCodeActivity.this);
                         //Executing the encoding
                         textEncoding.execute(imageSteganography);
@@ -130,6 +131,41 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
                 PerformEncoding.start();
             }
         });
+    }
+
+    @Override
+    public void onStartTextEncoding() {
+
+    }
+
+    @Override
+    public void onCompleteTextEncoding(ImageSteganography result) {
+        if (result != null && result.isEncoded()) {
+            encoded_image = result.getEncoded_image();
+            Toast.makeText(this, "đã mã hóa", Toast.LENGTH_SHORT).show();
+            imageViewCode.setImageBitmap(encoded_image);
+        }
+    }
+    private void saveToInternalStorage(Bitmap bitmapImage) {
+        OutputStream fOut;
+        File file = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOWNLOADS), "Encoded" + ".PNG"); // the File to save ,
+        try {
+            fOut = new FileOutputStream(file);
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fOut); // saving the Bitmap to a file
+            fOut.flush();
+            fOut.close();
+            whether_encoded.post(new Runnable() {
+                @Override
+                public void run() {
+                    save.dismiss();
+                }
+            });
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -175,40 +211,6 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onStartTextEncoding() {
-
-    }
-
-    @Override
-    public void onCompleteTextEncoding(ImageSteganography result) {
-        if (result != null && result.isEncoded()) {
-            encoded_image = result.getEncoded_image();
-            Toast.makeText(this, "đã mã hóa", Toast.LENGTH_SHORT).show();
-            imageViewCode.setImageBitmap(encoded_image);
-        }
-    }
-    private void saveToInternalStorage(Bitmap bitmapImage) {
-        OutputStream fOut;
-        File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOWNLOADS), "Encoded" + ".PNG"); // the File to save ,
-        try {
-            fOut = new FileOutputStream(file);
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fOut); // saving the Bitmap to a file
-            fOut.flush(); // Not really required
-            fOut.close(); // do not forget to close the stream
-            whether_encoded.post(new Runnable() {
-                @Override
-                public void run() {
-                    save.dismiss();
-                }
-            });
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     private void checkAndRequestPermissions() {
         int permissionWriteStorage = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);

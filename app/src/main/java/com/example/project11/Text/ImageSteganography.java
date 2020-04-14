@@ -1,10 +1,10 @@
-package com.ayush.imagesteganographylibrary.Text;
+package com.example.project11.Text;
 
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.ayush.imagesteganographylibrary.Utils.Crypto;
-import com.ayush.imagesteganographylibrary.Utils.Utility;
+import com.example.project11.Utils.Crypto;
+import com.example.project11.Utils.Utility;
 
 /**
  * This main class of the text steganography
@@ -30,15 +30,16 @@ public class ImageSteganography {
         this.secretKeyWrong = true;
         this.message = "";
         this.secret_key = "";
-        this.encrypted_message = "";
+        this.encrypted_message = "";//nơi lưu tin nhắn đc mã hóa
         this.image = Bitmap.createBitmap(600, 600, Bitmap.Config.ARGB_8888);
-        this.encoded_image = Bitmap.createBitmap(600, 600, Bitmap.Config.ARGB_8888);
+        this.encoded_image = Bitmap.createBitmap(600, 600, Bitmap.Config.ARGB_8888);//lới lưu ảnh đã đc ẩn tin nhắn mã hóa
         this.encrypted_zip = new byte[0];
     }
 
     public ImageSteganography(String message, String secret_key, Bitmap image) {
 
         this.message = message;
+        //tạo key với 16 kí tự
         this.secret_key = convertKeyTo128bit(secret_key);
         this.image = image;
         /*try {
@@ -48,6 +49,7 @@ public class ImageSteganography {
         } */
 
         this.encrypted_zip = message.getBytes();
+        //mã hóa tin nhắn
         this.encrypted_message = encryptMessage(message, this.secret_key);
 
         this.encoded = false;

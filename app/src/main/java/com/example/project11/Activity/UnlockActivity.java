@@ -14,15 +14,15 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ayush.imagesteganographylibrary.Text.AsyncTaskCallback.TextDecodingCallback;
-import com.ayush.imagesteganographylibrary.Text.ImageSteganography;
-import com.ayush.imagesteganographylibrary.Text.TextDecoding;
 import com.example.project11.R;
+import com.example.project11.Text.AsyncTaskCallback.TextDecodingCallback;
+import com.example.project11.Text.ImageSteganography;
+import com.example.project11.Text.TextDecoding;
 
 import java.io.IOException;
 
 
-public class UnlockActivity extends AppCompatActivity implements  TextDecodingCallback{
+public class UnlockActivity extends AppCompatActivity implements TextDecodingCallback {
 
     private static final int SELECT_PICTURE = 100;
     private static final String TAG = "Decode Class";

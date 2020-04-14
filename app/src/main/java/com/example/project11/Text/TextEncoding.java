@@ -1,4 +1,4 @@
-package com.ayush.imagesteganographylibrary.Text;
+package com.example.project11.Text;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -6,8 +6,8 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.ayush.imagesteganographylibrary.Text.AsyncTaskCallback.TextEncodingCallback;
-import com.ayush.imagesteganographylibrary.Utils.Utility;
+import com.example.project11.Text.AsyncTaskCallback.TextEncodingCallback;
+import com.example.project11.Utils.Utility;
 
 import java.util.List;
 
@@ -81,17 +81,17 @@ public class TextEncoding extends AsyncTask<ImageSteganography, Integer, ImageSt
 
             ImageSteganography textStegnography = imageSteganographies[0];
 
-            //getting image bitmap
+            //lấy ảnh bitmap chưa mã hóa
             Bitmap bitmap = textStegnography.getImage();
 
-            //getting height and width of original image
+            //lấy chiều dài và rộng của bitmap
             int originalHeight = bitmap.getHeight();
             int originalWidth = bitmap.getWidth();
 
-            //splitting bitmap
+            //chia bitmap chưa mã hóa
             List<Bitmap> src_list = Utility.splitImage(bitmap);
 
-            //mã hóa tin nhắn đã được mã hóa thành hình ảnh
+            //mã hóa tin nhắn đã được mã hóa bằng LSB
 
             List<Bitmap> encoded_list = EncodeDecode.encodeMessage(src_list, textStegnography.getEncrypted_message(), new EncodeDecode.ProgressHandler() {
 
@@ -115,17 +115,17 @@ public class TextEncoding extends AsyncTask<ImageSteganography, Integer, ImageSt
                 }
             });
 
-            //free Memory
+            //xóa src_list giải phóng bộ nhớ
             for (Bitmap bitm : src_list)
                 bitm.recycle();
 
             //Java Garbage collector
             System.gc();
 
-            //merging the split encoded image
+            //hợp hình ảnh đã được mã hóa
             Bitmap srcEncoded = Utility.mergeImage(encoded_list, originalHeight, originalWidth);
 
-            //Setting encoded image to result
+            //lấy ảnh đã mã hóa
             result.setEncoded_image(srcEncoded);
             result.setEncoded(true);
         }
