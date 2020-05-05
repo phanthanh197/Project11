@@ -29,7 +29,7 @@
             android:layout_height="73dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/box" />
+            android:src="@drawable/icon_box" />
 
         <TextView
             android:id="@+id/textView"
@@ -55,13 +55,13 @@
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="73dp"
+            android:layout_height="73dp"
             android:layout_below="@+id/imageView"
             android:layout_alignParentStart="true"
             android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
-            android:src="@drawable/ic_dropbox" />
+            android:src="@drawable/icon_gmail" />
 
         <TextView
             android:id="@+id/textView4"
@@ -74,7 +74,7 @@
             android:paddingTop="10dp"
             android:paddingStart="5dp"
             android:layout_toEndOf="@+id/imageView4"
-            android:text="DropBox" />
+            android:text="Gmail" />
     </LinearLayout>
 
     <LinearLayout

@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.UnlockActivity"></activity>
+        <activity android:name=".Activity.GmailActivity"></activity>
+        <activity android:name=".Activity.UnlockActivity" />
         <activity android:name=".Activity.AppBoxActivity" />
         <activity android:name=".Activity.SettActivity" />
         <activity android:name=".Activity.HideCodeActivity" />

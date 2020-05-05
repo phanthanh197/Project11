@@ -8,8 +8,6 @@ import com.example.project11.Text.ImageSteganography;
 
 public interface TextDecodingCallback {
 
-    void onStartTextEncoding();
-
     void onCompleteTextEncoding(ImageSteganography result);
 
 }

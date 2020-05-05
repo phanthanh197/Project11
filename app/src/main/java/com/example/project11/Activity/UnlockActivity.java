@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +19,8 @@ import com.example.project11.R;
 import com.example.project11.Text.AsyncTaskCallback.TextDecodingCallback;
 import com.example.project11.Text.ImageSteganography;
 import com.example.project11.Text.TextDecoding;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -27,9 +30,9 @@ public class UnlockActivity extends AppCompatActivity implements TextDecodingCal
     private static final int SELECT_PICTURE = 100;
     private static final String TAG = "Decode Class";
     //Initializing the UI components
-    private TextView textView;
+
     private ImageView imageView;
-    private EditText message;
+    private TextView message;
     private EditText secret_key;
     private Uri filepath;
     //Bitmap
@@ -40,8 +43,7 @@ public class UnlockActivity extends AppCompatActivity implements TextDecodingCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_unlock);
 
-        //Instantiation of UI components
-        textView = findViewById(R.id.whether_decoded);
+
 
         imageView = findViewById(R.id.imageview);
 
@@ -107,10 +109,7 @@ public class UnlockActivity extends AppCompatActivity implements TextDecodingCal
 
     }
 
-    @Override
-    public void onStartTextEncoding() {
 
-    }
 
     @Override
     public void onCompleteTextEncoding(ImageSteganography result) {
@@ -118,17 +117,17 @@ public class UnlockActivity extends AppCompatActivity implements TextDecodingCal
 
         if (result != null) {
             if (!result.isDecoded())
-                textView.setText("No message found");
+                Toast.makeText(this, "không tìm thấy tin nhắn", Toast.LENGTH_SHORT).show();
             else {
                 if (!result.isSecretKeyWrong()) {
-                    textView.setText("Decoded");
+                    Toast.makeText(this, "đã giải mã", Toast.LENGTH_SHORT).show();
                     message.setText("" + result.getMessage());
                 } else {
-                    textView.setText("Wrong secret key");
+                    Toast.makeText(this, "khóa sai", Toast.LENGTH_SHORT).show();
                 }
             }
         } else {
-            textView.setText("Select Image First");
+            Toast.makeText(this, "bạn chưa chọn đúng hình ảnh", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -134,11 +134,6 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
     }
 
     @Override
-    public void onStartTextEncoding() {
-
-    }
-
-    @Override
     public void onCompleteTextEncoding(ImageSteganography result) {
         if (result != null && result.isEncoded()) {
             encoded_image = result.getEncoded_image();
@@ -149,7 +144,7 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
     private void saveToInternalStorage(Bitmap bitmapImage) {
         OutputStream fOut;
         File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOWNLOADS), "Encoded" + ".PNG"); // the File to save ,
+                Environment.DIRECTORY_DOWNLOADS), "Encoded" + ".PNG"); // tạo file lưu ,
         try {
             fOut = new FileOutputStream(file);
             bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fOut); // saving the Bitmap to a file
@@ -167,6 +162,7 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
             e.printStackTrace();
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.bar,menu);

@@ -298,14 +298,22 @@ public class MainActivity extends AppCompatActivity {
     private void dialogtaichude() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_taianh);
-        LinearLayout linearLayout1;
+        LinearLayout linearLayout1,linearLayout2;
         final ImageView imageView1;
         linearLayout1 = (LinearLayout) dialog.findViewById(R.id.layout1);
+        linearLayout2 = (LinearLayout) dialog.findViewById(R.id.layout2);
         imageView1 = (ImageView) dialog.findViewById(R.id.imageView_box);
         linearLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AppBoxActivity.class);
+                startActivity(intent);
+            }
+        });
+        linearLayout2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, GmailActivity.class);
                 startActivity(intent);
             }
         });

@@ -10,7 +10,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-
+// lớp thực hiện mã hóa và giải mã
 class EncodeDecode {
 
     private static final String TAG = EncodeDecode.class.getName();
@@ -159,7 +159,7 @@ class EncodeDecode {
 
                 int masterIndex = 0;
 
-                //thiết lập giá trị pixel của ảnh bitmap theo tạo độ ảnh i,j
+                //thiết lập giá trị nhị phân của mỗi pixel theo tạo độ ảnh (i,j)
                 for (int j = 0; j < height; j++)
                     for (int i = 0; i < width; i++) {
 

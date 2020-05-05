@@ -33,11 +33,6 @@ public class TextDecoding extends AsyncTask<ImageSteganography, Void, ImageStega
         this.result = new ImageSteganography();
     }
 
-    //setting progress dialog if wanted
-    public void setProgressDialog(ProgressDialog progressDialog) {
-        this.progressDialog = progressDialog;
-    }
-
     //pre execution of method
     @Override
     protected void onPreExecute() {

@@ -1,10 +1,11 @@
 package com.example.project11.Text;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
-import com.example.project11.Utils.Crypto;
 import com.example.project11.Utils.Utility;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * This main class of the text steganography
@@ -42,46 +43,43 @@ public class ImageSteganography {
         //tạo key với 16 kí tự
         this.secret_key = convertKeyTo128bit(secret_key);
         this.image = image;
-        /*try {
-            this.encrypted_zip = Zipping.compress(message);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } */
-
+        // lấy mảng byte của tin nhắn
         this.encrypted_zip = message.getBytes();
         //mã hóa tin nhắn
         this.encrypted_message = encryptMessage(message, this.secret_key);
-
+        this.encoded_image = Bitmap.createBitmap(1200, 900, Bitmap.Config.ARGB_8888);
         this.encoded = false;
         this.decoded = false;
         this.secretKeyWrong = true;
-
-        this.encoded_image = Bitmap.createBitmap(600, 600, Bitmap.Config.ARGB_8888);
-
     }
 
     public ImageSteganography(String secret_key, Bitmap image) {
-        this.secret_key = convertKeyTo128bit(secret_key);
+        this.secret_key = convertKeyTo128bit(secret_key);// tạo mật khẩu 128bit dữ liệu
         this.image = image;
-
         this.encoded = false;
         this.decoded = false;
         this.secretKeyWrong = true;
-
         this.message = "";
         this.encrypted_message = "";
-        this.encoded_image = Bitmap.createBitmap(600, 600, Bitmap.Config.ARGB_8888);
+        this.encoded_image = Bitmap.createBitmap(1200, 900, Bitmap.Config.ARGB_8888);
         this.encrypted_zip = new byte[0];
     }
 
     private static String encryptMessage(String message, String secret_key) {
-        Log.d(TAG, "Message : " + message);
 
         String encrypted_message = "";
         if (message != null) {
             if (!Utility.isStringEmpty(secret_key)) {
                 try {
-                    encrypted_message = Crypto.encryptMessage(message, secret_key);
+                    // Creating key and cipher
+                    SecretKeySpec aesKey = new SecretKeySpec(secret_key.getBytes(), "AES");
+                    Cipher cipher;
+                    //AES cipher
+                    cipher = Cipher.getInstance("AES");
+                    // encrypt the text
+                    cipher.init(Cipher.ENCRYPT_MODE, aesKey);
+                    //Mã hóa dựa trên mật khẩu AES 128-bit (cipher.doFinal(message.getBytes()))
+                    encrypted_message = android.util.Base64.encodeToString(cipher.doFinal(message.getBytes()), 0);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -89,9 +87,7 @@ public class ImageSteganography {
                 encrypted_message = message;
             }
         }
-
-        Log.d(TAG, "Encrypted_message : " + encrypted_message);
-
+        //trả về dữ liêu
         return encrypted_message;
     }
 
@@ -100,9 +96,23 @@ public class ImageSteganography {
         if (message != null) {
             if (!Utility.isStringEmpty(secret_key)) {
                 try {
-                    decrypted_message = Crypto.decryptMessage(message, secret_key);
+                    SecretKeySpec aesKey = new SecretKeySpec(secret_key.getBytes(), "AES");
+                    Cipher cipher;
+
+                    //AES cipher
+                    cipher = Cipher.getInstance("AES");
+
+                    // decrypting the text
+                    cipher.init(Cipher.DECRYPT_MODE, aesKey);
+                    String decrypted;
+                    byte[] decoded;
+                    decoded = android.util.Base64.decode(message.getBytes(), 0);
+                    decrypted = new String(cipher.doFinal(decoded));
+
+                    //returning decrypted text
+                    return decrypted;
                 } catch (Exception e) {
-                    Log.d(TAG, "Error : " + e.getMessage() + " , may be due to wrong key.");
+                    e.printStackTrace();
                 }
             } else {
                 decrypted_message = message;
@@ -123,9 +133,6 @@ public class ImageSteganography {
         } else {
             result = new StringBuilder(result.substring(0, 15));
         }
-
-        Log.d(TAG, "Secret Key Length : " + result);
-
         return result.toString();
     }
 
