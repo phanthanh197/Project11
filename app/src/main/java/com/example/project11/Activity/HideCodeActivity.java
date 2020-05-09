@@ -49,9 +49,10 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
     private TextView textView,whether_encoded;
     private EditText editText;
     private ImageView imageViewCode;
-    private String noidung,tenbang1,imgcode;
+    private String tenanh,tenbang1,imgcode;
     private Bitmap original_image;
     private Bitmap encoded_image;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,7 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
                     .centerCrop()
                     .into(imageViewCode);
         }
+
         checkAndRequestPermissions();
         //Encode Button
         encode_button.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +146,7 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
     private void saveToInternalStorage(Bitmap bitmapImage) {
         OutputStream fOut;
         File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOWNLOADS), "Encoded" + ".PNG"); // tạo file lưu ,
+                Environment.DIRECTORY_DOWNLOADS), "Encoded" + tenanh +".PNG"); // tạo file lưu ,
         try {
             fOut = new FileOutputStream(file);
             bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fOut); // saving the Bitmap to a file
@@ -206,8 +208,7 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
         }
         return super.onOptionsItemSelected(item);
     }
-
-    private void checkAndRequestPermissions() {
+    public void checkAndRequestPermissions() {
         int permissionWriteStorage = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
         int ReadPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -219,7 +220,9 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
             listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
         if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[0]), 1);
+            ActivityCompat.requestPermissions(this,listPermissionsNeeded.toArray(new String[0]), 1);
         }
     }
+
+
 }

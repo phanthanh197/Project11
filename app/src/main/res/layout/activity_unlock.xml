@@ -60,7 +60,7 @@
     <TextView
         android:id="@+id/message"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="150dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/maulen"
         android:layout_below="@id/textView2"
@@ -73,12 +73,13 @@
         android:id="@+id/decode_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Decode"
+        android:layout_below="@id/message"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="13dp"
+        android:text="Giải mã"
         android:textAlignment="center"
         android:textSize="14dp" />
-
 
 
 </RelativeLayout>

@@ -62,7 +62,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:hint="Nhập mật mã" />
+        android:hint="Nhập mật mã"
+        android:inputType="textPassword"/>
     </LinearLayout>
 
     <LinearLayout

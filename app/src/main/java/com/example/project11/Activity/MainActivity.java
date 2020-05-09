@@ -38,7 +38,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -328,21 +327,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String thoigianngay() {
-        Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String date = simpleDateFormat.format(new Date());
         return date;
     }
 
     public String thoigianthang() {
-        Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yyyy");
         String date = simpleDateFormat.format(new Date());
         return date;
     }
 
     public String thoigian() {
-        Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh-mm-ss");
         String gio = simpleDateFormat.format(new Date());
         return gio;
