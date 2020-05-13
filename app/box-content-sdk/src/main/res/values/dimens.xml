@@ -1,9 +1,0 @@
-<resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="keyline_margin">16dp</dimen>
-    <dimen name="collaboration_cell_height">72dp</dimen>
-    <dimen name="collaboration_thumb_size">40dp</dimen>
-    <dimen name="box_body_material">16sp</dimen>
-    <dimen name="box_text_size_title_material">20sp</dimen>
-    <dimen name="box_text_size_subhead_material">16sp</dimen>
-</resources>
