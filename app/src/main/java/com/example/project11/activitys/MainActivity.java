@@ -27,7 +27,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.project11.adapters.AdapterMonth;
+import com.example.project11.adapters.MonthAdapter;
 import com.example.project11.adapters.Database;
 import com.example.project11.adapters.InformationAdapter;
 import com.example.project11.R;
@@ -43,8 +43,8 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     public Database database;
-    ArrayList<Month> arrayList;
-    ArrayList<Info> arrayList2;
+    ArrayList<Month> listMonth;
+    ArrayList<Info> listInfo;
     RecyclerView recyclerViewthang, recyclerView;
     TextView textnam;
     ImageView imgtheme, btnthemchude, btntaichude,imagesetting,btngiaima;
@@ -101,33 +101,33 @@ public class MainActivity extends AppCompatActivity {
     private void recyclerthang() {
         recyclerViewthang = (RecyclerView) findViewById(R.id.recycler_thoigian);
         recyclerViewthang.setHasFixedSize(true);
-        AdapterMonth adapterThang = new AdapterMonth(arrayList, this);
+        MonthAdapter adapterThang = new MonthAdapter(listMonth, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerViewthang.setLayoutManager(linearLayoutManager);
         recyclerViewthang.setAdapter(adapterThang);
     }
 
     private void addthang() {//thêm các tháng vào recyclerview
-        arrayList = new ArrayList<>();
-        arrayList.add(new Month("January"));
-        arrayList.add(new Month("February"));
-        arrayList.add(new Month("March"));
-        arrayList.add(new Month("April"));
-        arrayList.add(new Month("May"));
-        arrayList.add(new Month("June"));
-        arrayList.add(new Month("Juny"));
-        arrayList.add(new Month("August"));
-        arrayList.add(new Month("September"));
-        arrayList.add(new Month("October"));
-        arrayList.add(new Month("November"));
-        arrayList.add(new Month("December"));
+        listMonth = new ArrayList<>();
+        listMonth.add(new Month("January"));
+        listMonth.add(new Month("February"));
+        listMonth.add(new Month("March"));
+        listMonth.add(new Month("April"));
+        listMonth.add(new Month("May"));
+        listMonth.add(new Month("June"));
+        listMonth.add(new Month("Juny"));
+        listMonth.add(new Month("August"));
+        listMonth.add(new Month("September"));
+        listMonth.add(new Month("October"));
+        listMonth.add(new Month("November"));
+        listMonth.add(new Month("December"));
     }
 
     private void recyclerthongtin() {
-        arrayList2 = new ArrayList<Info>();
+        listInfo = new ArrayList<Info>();
         recyclerView = (RecyclerView) findViewById(R.id.recycler_thongtin);
         recyclerView.setHasFixedSize(true);
-        thongTinBeAdapter = new InformationAdapter(arrayList2, this);
+        thongTinBeAdapter = new InformationAdapter(listInfo, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addthongtinthangnay() {//lấy dữ liệu từng tháng
-        arrayList2.clear();
+        listInfo.clear();
         Cursor cursor = database.getData("SELECT * FROM '" + bangthanghientai1 + "'");
         cursor.moveToFirst();
         while (cursor.moveToNext()) {
@@ -143,13 +143,13 @@ public class MainActivity extends AppCompatActivity {
             String ten = cursor.getString(1);
             String diachianh = cursor.getString(2);
             String noidung = cursor.getString(3);
-            arrayList2.add(0, new Info(id, ten, noidung, diachianh, thoigian()));
+            listInfo.add(0, new Info(id, ten, noidung, diachianh, thoigian()));
         }
         thongTinBeAdapter.notifyDataSetChanged();
     }
 
     public void addthongtinthang() {
-        arrayList2.clear();
+        listInfo.clear();
         Cursor cursor = database.getData("SELECT * FROM '" + tenbang1 + "'");
         cursor.moveToFirst();
         while (cursor.moveToNext()) {
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
             String ten = cursor.getString(1);
             String diachianh = cursor.getString(2);
             String noidung = cursor.getString(3);
-            arrayList2.add(0, new Info(id, ten, noidung, diachianh, thoigian()));
+            listInfo.add(0, new Info(id, ten, noidung, diachianh, thoigian()));
         }
         thongTinBeAdapter.notifyDataSetChanged();
     }
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
                                 String ten = cursor.getString(1);
                                 String diachianh = cursor.getString(2);
                                 noidung = cursor.getString(3);
-                                arrayList2.add(0, new Info(id, ten, noidung, diachianh, thoigian()));
+                                listInfo.add(0, new Info(id, ten, noidung, diachianh, thoigian()));
                                 thongTinBeAdapter.notifyItemInserted(0);
                                 recyclerView.scrollToPosition(0);
                             }
@@ -283,7 +283,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private File fileimage() throws IOException {
-        // tao anh ten thanh.png trong file save_anh
         String root = Environment.getExternalStorageDirectory().toString();
         File file1 = new File(root + "/save_anh");
         if (!file1.exists()) {

@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -43,6 +44,7 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
     private EditText message;
     private EditText secret_key;
     private TextEncoding textEncoding;
+    private TextView whether_encoded;
     private ProgressDialog save;
     private ImageView imageViewCode;
     private String tenanh, tenbang1, imgcode;
@@ -54,6 +56,7 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hide_code);
+        whether_encoded = findViewById(R.id.whether_encoded);
         imageViewCode = (ImageView) findViewById(R.id.imageViewCode);
         message = findViewById(R.id.message_hide_code);
         secret_key = findViewById(R.id.secret_key);
@@ -139,7 +142,7 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
     public void onCompleteTextEncoding(ImageSteganography result) {
         if (result != null && result.isEncoded()) {
             encoded_image = result.getEncoded_image();
-            Toast.makeText(this, "đã mã hóa", Toast.LENGTH_SHORT).show();
+            whether_encoded.setText("");
             imageViewCode.setImageBitmap(encoded_image);
         }
     }
@@ -154,6 +157,12 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
             bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fOut); // saving the Bitmap to a file
             fOut.flush();
             fOut.close();
+            whether_encoded.post(new Runnable() {
+                @Override
+                public void run() {
+                    save.dismiss();
+                }
+            });
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

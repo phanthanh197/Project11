@@ -18,11 +18,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AdapterMonth extends RecyclerView.Adapter<AdapterMonth.ViewHorlDer> {
+public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHorlDer> {
     ArrayList<Month> arrayList;
     MainActivity context;
 
-    public AdapterMonth(ArrayList<Month> arrayList, MainActivity context) {
+    public MonthAdapter(ArrayList<Month> arrayList, MainActivity context) {
         this.arrayList = arrayList;
         this.context = context;
     }
@@ -31,7 +31,7 @@ public class AdapterMonth extends RecyclerView.Adapter<AdapterMonth.ViewHorlDer>
     @Override
     public ViewHorlDer onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = (View) layoutInflater.inflate(R.layout.thang, viewGroup, false);
+        View view = (View) layoutInflater.inflate(R.layout.item_month, viewGroup, false);
         return new ViewHorlDer(view);
     }
 

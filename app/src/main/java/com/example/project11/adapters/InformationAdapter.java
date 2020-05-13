@@ -41,7 +41,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
     @Override
     public ThongTinViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.recycler_thongtinbe, viewGroup, false);
+        View view = layoutInflater.inflate(R.layout.item_infomation, viewGroup, false);
         return new ThongTinViewHolder(view);
     }
 
@@ -111,7 +111,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
         dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_suatieude);
         final EditText edtText = (EditText) dialog.findViewById(R.id.dialog_edt_noidung_tieude);
-        Button buttondongy = (Button) dialog.findViewById(R.id.dilog_btn_doi_tieu_de);
+        Button buttondongy = (Button) dialog.findViewById(R.id.dialog_btn_doi_tieu_de);
         final Button buttonkodongy = (Button) dialog.findViewById(R.id.dilog_btn_huy_doi_tieu_de);
         buttondongy.setOnClickListener(new View.OnClickListener() {
             @Override
