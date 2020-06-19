@@ -63,6 +63,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
                     .centerCrop()
                     .into(thongTinViewHolder.anh);
         }
+
         thongTinViewHolder.thongtin.setText(k);
         thongTinViewHolder.tenchude.setText(s);
         final String ten = context.tenbang1;
@@ -78,6 +79,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
                 context.startActivity(intent);
             }
         });
+
         thongTinViewHolder.menuchude.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

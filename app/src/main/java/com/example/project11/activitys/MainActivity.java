@@ -1,8 +1,10 @@
 package com.example.project11.activitys;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,6 +43,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -170,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
         final ImageButton imgintentcamera, imgdowloatcamera;
         final EditText edttenchude;
         Button btnyes, btnno;
+        checkAndRequestPermissions();
         imgintentcamera = (ImageButton) dialog.findViewById(R.id.img_btn_camera);
         imgdowloatcamera = (ImageButton) dialog.findViewById(R.id.img_btn_dowloat);
         edttenchude = (EditText) dialog.findViewById(R.id.edt_name_theme);
@@ -191,6 +197,11 @@ public class MainActivity extends AppCompatActivity {
                         Uri photoURI = FileProvider.getUriForFile(MainActivity.this, "com.example.android.fileprovider", imagefile);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                         startActivityForResult(intent, REQUEST_CODE_CAMERA);
+                        Glide.with(getApplicationContext())
+                                .load(photoURI)
+                                .centerCrop()
+                                .into(imgtheme);
+
                     }
                 }
             }
@@ -210,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String tenchude = edttenchude.getText().toString();
                 if (!tenchude.equals("")) {
-                    String noidung="noi dung";
+                    String noidung="";
                     database.QueryData("INSERT INTO '" + bangthanghientai1 + "' VALUES(null, '" + tenchude + "', '" + photopath + "','"+noidung+"')");
                     photopath = "";
                     if (tenbang1.equals(bangthanghientai1)) {
@@ -249,10 +260,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE_CAMERA && resultCode == RESULT_OK && data != null) {
             File file = new File(photopath);
             Uri uri = Uri.fromFile(file);
-            Glide.with(getApplicationContext())
-                    .load(uri)
-                    .centerCrop()
-                    .into(imgtheme);
+
         }
         if (requestCode == REQUEST_CODE_FILE && resultCode == RESULT_OK && data != null) {
             Uri uri = data.getData();
@@ -267,6 +275,7 @@ public class MainActivity extends AppCompatActivity {
 
     public String getRealPathFromURI(Context context, Uri uri) {
         //lấy địa chỉ từ file ảnh của bộ nhớ điên thoại
+
         Cursor cursor = null;
         try {
             String[] proj = {MediaStore.Images.Media.DATA};
@@ -341,5 +350,16 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh-mm-ss");
         String gio = simpleDateFormat.format(new Date());
         return gio;
+    }
+    public void checkAndRequestPermissions() {
+        int permissionWriteStorage = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (permissionWriteStorage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.CAMERA);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[0]), 1);
+        }
     }
 }

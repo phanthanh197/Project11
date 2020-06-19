@@ -13,22 +13,14 @@ public class Utility {
     //Taking the square block size constant
     private static final int SQUARE_BLOCK_SIZE = 512;
 
-    /**
-     * chia hình ảnh thành nhiều ảnh nhở với kích thước ( SQUARE_BLOCK_SIZE * SQUARE_BLOCK_SIZE ) .
-     *
-     * @return : List of splitted images {List}
-     * @parameter : Image {Bitmap}
-     */
+    // chia hình ảnh thành nhiều ảnh nhở với kích thước ( SQUARE_BLOCK_SIZE * SQUARE_BLOCK_SIZE ) .
+
     public static List<Bitmap> splitImage(Bitmap bitmap) {
 
         //đối với chiều rông , chiều cao của khối hình ảnh
         int chunkHeight, chunkWidth;
 
-        //To store all the small image chunks in bitmap format in this list
         ArrayList<Bitmap> chunkedImages = new ArrayList<>();
-
-        // Assume like a matrix in which the element is a Small Square block
-        //Rows and columns of that matrix
         int rows = bitmap.getHeight() / SQUARE_BLOCK_SIZE;
         int cols = bitmap.getWidth() / SQUARE_BLOCK_SIZE;
 
@@ -40,8 +32,6 @@ public class Utility {
         if (chunk_width_mod > 0)
             cols++;
 
-
-        //x_coordinate and y_coordinate are the pixel positions of the image chunks
         int y_coordinate = 0;
 
         for (int x = 0; x < rows; x++) {
@@ -59,7 +49,6 @@ public class Utility {
                 if (x == rows - 1 && chunk_height_mod > 0)
                     chunkHeight = chunk_height_mod;
 
-                //Adding chunk images to the list
                 chunkedImages.add(Bitmap.createBitmap(bitmap, x_coordinate, y_coordinate, chunkWidth, chunkHeight));
                 x_coordinate += SQUARE_BLOCK_SIZE;
 
@@ -74,7 +63,6 @@ public class Utility {
 
     public static Bitmap mergeImage(List<Bitmap> images, int original_height, int original_width) {
 
-        //Calculating number of Rows and columns of that matrix
         int rows = original_height / SQUARE_BLOCK_SIZE;
         int cols = original_width / SQUARE_BLOCK_SIZE;
 
@@ -86,10 +74,8 @@ public class Utility {
         if (chunk_width_mod > 0)
             cols++;
 
-        //create a bitmap of a size which can hold the complete image after merging
         Bitmap bitmap = Bitmap.createBitmap(original_width, original_height, Bitmap.Config.ARGB_4444);
 
-        //Creating canvas
         Canvas canvas = new Canvas(bitmap);
 
         int count = 0;
@@ -97,14 +83,12 @@ public class Utility {
         for (int irows = 0; irows < rows; irows++) {
             for (int icols = 0; icols < cols; icols++) {
 
-                //Drawing all the chunk images of canvas
                 canvas.drawBitmap(images.get(count), (SQUARE_BLOCK_SIZE * icols), (SQUARE_BLOCK_SIZE * irows), new Paint());
                 count++;
 
             }
         }
 
-        //returning bitmap
         return bitmap;
     }
 
@@ -113,7 +97,6 @@ public class Utility {
 
         int size = b.length / 3;
         System.runFinalization();
-        //Garbage collection
         System.gc();
 
         int[] result = new int[size];
@@ -142,13 +125,6 @@ public class Utility {
         return value;
     }
 
-    /**
-     * Convert integer array representing [argb] values to byte array
-     * representing [rgb] values
-     *
-     * @return : byte Array representing [rgb] values.
-     * @parameter : Integer array representing [argb] values.
-     */
     public static byte[] convertArray(int[] array) {
 
         byte[] newarray = new byte[array.length * 3];
@@ -164,12 +140,6 @@ public class Utility {
         return newarray;
     }
 
-    /**
-     * This method is used to check whether the string is empty of not
-     *
-     * @return : true or false {boolean}
-     * @parameter : String
-     */
     public static boolean isStringEmpty(String str) {
         boolean result = true;
 

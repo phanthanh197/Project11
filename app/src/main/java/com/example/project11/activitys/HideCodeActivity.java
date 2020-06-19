@@ -47,7 +47,7 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
     private TextView whether_encoded;
     private ProgressDialog save;
     private ImageView imageViewCode;
-    private String tenanh, tenbang1, imgcode;
+    private String tenanh, imgcode;
     private Bitmap original_image;
     private Bitmap encoded_image;
 
@@ -67,7 +67,6 @@ public class HideCodeActivity extends AppCompatActivity implements TextEncodingC
         String value2 = intent.getStringExtra("2");
         String value3 = intent.getStringExtra("3");
         int value4 = intent.getIntExtra("4", 0);
-        tenbang1 = intent.getStringExtra("5");
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);

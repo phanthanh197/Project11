@@ -11,17 +11,12 @@ import com.example.project11.utils.Utility;
 
 import java.util.List;
 
-/**
- * In this class all those method in EncodeDecode class are used to decode secret message in image.
- * All the tasks will run in background.
- */
 public class TextDecoding extends AsyncTask<ImageSteganography, Void, ImageSteganography> {
 
-    //Tag for Log
+
     private final static String TAG = TextDecoding.class.getName();
 
-    private final ImageSteganography result;
-    //Callback interface for AsyncTask
+    private final ImageSteganography result
     private final TextDecodingCallback textDecodingCallback;
     private ProgressDialog progressDialog;
 
@@ -38,7 +33,7 @@ public class TextDecoding extends AsyncTask<ImageSteganography, Void, ImageStega
     protected void onPreExecute() {
         super.onPreExecute();
 
-        //setting parameters of progress dialog
+
         if (progressDialog != null) {
             progressDialog.setMessage("Loading, Please Wait...");
             progressDialog.setTitle("Decoding Message");

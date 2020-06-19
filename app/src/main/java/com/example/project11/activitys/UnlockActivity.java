@@ -92,7 +92,7 @@ public class UnlockActivity extends AppCompatActivity implements TextDecodingCal
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //Image set to imageView
+        //hình ảnh đặt thành imageView
         if (requestCode == SELECT_PICTURE && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
             filepath = data.getData();
@@ -111,7 +111,6 @@ public class UnlockActivity extends AppCompatActivity implements TextDecodingCal
 
     @Override
     public void onCompleteTextEncoding(ImageSteganography result) {
-        //By the end of textDecoding
 
         if (result != null) {
             if (!result.isDecoded())

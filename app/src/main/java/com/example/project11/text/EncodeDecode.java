@@ -15,7 +15,7 @@ import java.util.Vector;
 class EncodeDecode {
 
     private static final String TAG = EncodeDecode.class.getName();
-    //start and end message constants
+    //bắt đầu và kết thúc bằng tin nhắn
     private static final String END_MESSAGE_COSTANT = "#!@";
     private static final String START_MESSAGE_COSTANT = "@!#";
     private static final int[] binary = {16, 8, 0};
@@ -26,12 +26,12 @@ class EncodeDecode {
     private static byte[] encodeMessage(int[] integer_pixel_array, int image_columns, int image_rows,
                                         MessageEncodingStatus messageEncodingStatus, ProgressHandler progressHandler) {
 
-        //denotes RGB channels
+        //hien thi cac kenh RGB
         int channels = 3;
 
         int shiftIndex = 4;
 
-        //creating result byte_array
+        //tạo kết quả byte_array
         byte[] result = new byte[image_rows * image_columns * channels];
 
         int resultIndex = 0;
@@ -40,7 +40,7 @@ class EncodeDecode {
 
             for (int col = 0; col < image_columns; col++) {
 
-                //2D matrix in 1D
+
                 int element = row * image_columns + col;
 
                 byte tmp;
@@ -242,16 +242,10 @@ class EncodeDecode {
 
     }
 
-    /**
-     * This method takes the list of encoded chunk images and decodes it.
-     *
-     * @return : encrypted message {String}
-     * @parameter : encodedImages {list of encode chunk images}
-     */
 
     public static String decodeMessage(List<Bitmap> encodedImages) {
 
-        //Creating object
+        //tạo đối tượng
         MessageDecodingStatus messageDecodingStatus = new MessageDecodingStatus();
 
         for (Bitmap bit : encodedImages) {
@@ -273,7 +267,7 @@ class EncodeDecode {
         return messageDecodingStatus.getMessage();
     }
 
-    //Progress handler class
+    //xử lý
     public interface ProgressHandler {
 
         void setTotal(int tot);
