@@ -16,7 +16,7 @@ public class TextDecoding extends AsyncTask<ImageSteganography, Void, ImageStega
 
     private final static String TAG = TextDecoding.class.getName();
 
-    private final ImageSteganography result
+    private final ImageSteganography result;
     private final TextDecodingCallback textDecodingCallback;
     private ProgressDialog progressDialog;
 
